@@ -72,3 +72,12 @@ def novo_flashcard(request):
         except IntegrityError:
             messages.add_message(request, constants.ERROR, 'Selecione uma categoria')
             return redirect('/flashcard/novo_flashcard')
+
+
+def deletar_flashcard(request, id):
+    flashcard = Flashcard.objects.get(id=id)
+    flashcard.delete()
+    messages.add_message(
+        request, constants.SUCCESS, 'Flashcard deletado com sucesso!'
+    )
+    return redirect('/flashcard/novo_flashcard')
