@@ -21,6 +21,23 @@ class Flashcard(models.Model):
     def __str__(self):
         return self.pergunta
 
+    @property
+    def css_dificuldade(self):
+        if self.dificuldade == '1':
+            return 'flashcard-facil'
+        elif self.dificuldade == '2':
+            return 'flashcard-facil'
+        elif self.dificuldade == '3':
+            return 'flashcard-medio'
+        elif self.dificuldade == '4':
+            return 'flashcard-medio'
+        elif self.dificuldade == '5':
+            return 'flashcard-dificil'
+        elif self.dificuldade == '6':
+            return 'flashcard-dificil'
+        elif self.dificuldade == '7':
+            return 'flashcard-dificil'
+
 
 class FlashcardDesafio(models.Model):
     flashcard = models.ForeignKey(Flashcard, on_delete=models.DO_NOTHING)
