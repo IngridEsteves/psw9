@@ -22,4 +22,5 @@ urlpatterns = [
     # path('/', include('home.urls')),  # Página Inicial
     # TODO: Criar a página inicial para login e cadastro
     path('usuarios/', include('usuarios.urls')),
+    path('flashcard/', include('flashcard.urls')),
 ]
