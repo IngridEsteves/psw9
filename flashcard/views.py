@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Categoria, Flashcard
+from .models import Categoria, Flashcard, Desafio, FlashcardDesafio
 from django.contrib.messages import constants
 from django.contrib import messages
 from django.db import IntegrityError
@@ -75,9 +75,68 @@ def novo_flashcard(request):
 
 
 def deletar_flashcard(request, id):
+    # TODO: Fazer a validação de segurança com request.user - OK
+    if not request.user.is_authenticated:
+        messages.add_message(request, constants.ERROR, 'Você não pode deletar flashcards de outros usuários')
+        return redirect('/flashcard/novo_flashcard')
+
     flashcard = Flashcard.objects.get(id=id)
     flashcard.delete()
     messages.add_message(
         request, constants.SUCCESS, 'Flashcard deletado com sucesso!'
     )
     return redirect('/flashcard/novo_flashcard')
+
+
+def iniciar_desafio(request):
+    if request.method == 'GET':
+        categorias = Categoria.objects.all()
+        dificuldades = Flashcard.DIFICULDADE_CHOICES
+        return render(
+            request,
+            'iniciar_desafio.html',
+            {'categorias': categorias, 'dificuldades': dificuldades},
+        )
+    elif request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        categorias = request.POST.getlist('categoria')
+        dificuldade = request.POST.get('dificuldade')
+        qtd_perguntas = request.POST.get('qtd_perguntas')
+
+        flashcards = (
+            Flashcard.objects.filter(user=request.user)
+            .filter(dificuldade=dificuldade)
+            .filter(categoria_id__in=categorias)
+            .order_by('?')
+        )
+
+        if flashcards.count() < int(qtd_perguntas):
+            messages.add_message(
+                request,
+                constants.ERROR,
+                'Não existe essa quantidade de perguntas para os critérios selecionados',
+            )
+            return redirect('/flashcard/iniciar_desafio/')
+
+        desafio = Desafio(
+            user=request.user,
+            titulo=titulo,
+            quantidade_perguntas=qtd_perguntas,
+            dificuldade=dificuldade,
+        )
+        desafio.save()
+
+        desafio.categoria.add(*categorias)
+
+        flashcards = flashcards[: int(qtd_perguntas)]
+
+        for f in flashcards:
+            flashcard_desafio = FlashcardDesafio(
+                flashcard=f,
+            )
+            flashcard_desafio.save()
+            desafio.flashcards.add(flashcard_desafio)
+
+        desafio.save()
+
+        return redirect(f'/flashcard/desafio/{desafio.id}')
