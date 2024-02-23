@@ -178,6 +178,21 @@ def desafio(request, id):
         erros = desafio.flashcards.filter(respondido=True).filter(acertou=False).count()
         faltantes = desafio.flashcards.filter(respondido=False).count()
 
+        if desafio.dificuldade == '1':
+            cor = 'flashcard-teste-facil'
+        elif desafio.dificuldade == '2':
+            cor = 'flashcard-teste-facil'
+        elif desafio.dificuldade == '3':
+            cor = 'flashcard-teste-medio'
+        elif desafio.dificuldade == '4':
+            cor = 'flashcard-teste-medio'
+        elif desafio.dificuldade == '5':
+            cor = 'flashcard-teste-dificil'
+        elif desafio.dificuldade == '6':
+            cor = 'flashcard-teste-dificil'
+        elif desafio.dificuldade == '7':
+            cor = 'flashcard-teste-dificil'
+
         if not desafio.user == request.user:
             raise Http404()
 
@@ -189,6 +204,7 @@ def desafio(request, id):
                 'acertos': acertos,
                 'erros': erros,
                 'faltantes': faltantes,
+                'cor': cor,
             },
         )
 

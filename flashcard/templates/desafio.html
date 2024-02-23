@@ -25,6 +25,7 @@
                 {% for flash in desafio.flashcards.all %}
                     <span class="badge-categoria">{{flash.flashcard.categoria}}</span>
                 {% endfor %}
+                <span class="{{cor}}">{{desafio.get_dificuldade_display}}</span>
                 <br>
                 <br>
                 <br>

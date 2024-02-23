@@ -37,6 +37,21 @@
 
 }
 
+.flashcard-teste-facil{
+    background-color: #1DAB1A;
+    border: 5px solid #1DAB1A;
+}
+
+.flashcard-teste-medio{
+    background-color: #E8910E;
+    border: 5px solid #E8910E;
+}
+
+.flashcard-teste-dificil{
+    background-color: #FE0000;
+    border: 5px solid #FE0000;
+}
+
 .flashcard-categoria{
     background-color: var(--dark-color);
     display: inline;
