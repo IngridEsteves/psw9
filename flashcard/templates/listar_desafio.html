@@ -66,7 +66,7 @@
                         <tr class="linha">
                             <th><a href="{% url 'desafio' desafio.id %}">{{desafio.id}}</a></th>
                             <td>{{desafio.titulo}}</td>
-                            <td>{{desafio.get_dificuldade_display}}</td>
+                            <td>{{desafio.cor}}</td>
                             <td>{{desafio.status}}</td>
                         </tr>
                   {% endfor %}

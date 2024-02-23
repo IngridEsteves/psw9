@@ -67,3 +67,19 @@ class Desafio(models.Model):
             return mark_safe('<span class="badge bg-primary">Em aberto</span>')
         else:
             return mark_safe('<span class="badge bg-success">Concluído</span>')
+
+    def cor(self):
+        if self.dificuldade == '1':
+            return mark_safe('<span class="badge flashcard-teste-facil">Semana 1</span>')
+        elif self.dificuldade == '2':
+            return mark_safe('<span class="badge flashcard-teste-facil">Semana 2</span>')
+        elif self.dificuldade == '3':
+            return mark_safe('<span class="badge flashcard-teste-medio">Semana 3</span>')
+        elif self.dificuldade == '4':
+            return mark_safe('<span class="badge flashcard-teste-medio">Semana 4</span>')
+        elif self.dificuldade == '5':
+            return mark_safe('<span class="badge flashcard-teste-dificil">Semana 5</span>')
+        elif self.dificuldade == '6':
+            return mark_safe('<span class="badge flashcard-teste-dificil">Semana 6</span>')
+        elif self.dificuldade == '7':
+            return mark_safe('<span class="badge flashcard-teste-dificil">Semana 7</span>')

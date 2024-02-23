@@ -178,6 +178,8 @@ def desafio(request, id):
         erros = desafio.flashcards.filter(respondido=True).filter(acertou=False).count()
         faltantes = desafio.flashcards.filter(respondido=False).count()
 
+        # TODO: listar categorias de forma distinta - linha 25 em desafio.html
+
         if desafio.dificuldade == '1':
             cor = 'flashcard-teste-facil'
         elif desafio.dificuldade == '2':
