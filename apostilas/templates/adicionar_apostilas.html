@@ -24,16 +24,17 @@
                     {% if messages %}
                         <br>
                         {% for message in messages %}
-                            <section class="alert {{message.tags}}">
+                            <section class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                                 {{message}}
                             </section>
                         {% endfor %}
                         <br>
                     {% endif %}
-                    <form action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                    <form action="{% url 'adicionar_apostilas' %}" method="POST" enctype='multipart/form-data'>{% csrf_token %}
                         <p class="fonte-secundaria">Adicionar resumos</p>
-                        <label>Titulo</label>
-                        <input type="text" name="titulo" placeholder="titulo" class="form-control">
+                        <label>Título</label>
+                        <input type="text" name="titulo" placeholder="Título" class="form-control">
                         <br>
                         <label>Arquivo</label>
                         <input type="file" name="arquivo" class="form-control">
@@ -57,7 +58,7 @@
                         {% for apostila in apostilas %}
                             <tr class="linha">
                                 <td>{{apostila.titulo}}</td>
-                                <td><a href="#" style="color: black; text-decoration: none;" class="btn-cadastro">Abrir</a></td>
+                                <td><a href="{% url "apostila" apostila.id %}" target="_blank" style="color: black; text-decoration: none;" class="btn-cadastro">Abrir</a></td>
                             </tr>
                         {% endfor %}
                         
@@ -68,4 +69,5 @@
             </div>
         </div>
     </div>
+
 {% endblock 'conteudo' %}
