@@ -58,4 +58,4 @@ def logar(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('/usuarios/login')
+    return redirect('/usuarios/cadastro')
