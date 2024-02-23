@@ -48,7 +48,7 @@ def logar(request):
         if user:
             auth.login(request, user)
             messages.add_message(request, constants.SUCCESS, 'Logado!')
-            return redirect('/flashcard/novo_flashcard/')
+            return redirect('/usuarios/home')
         else:
             messages.add_message(
                 request, constants.ERROR, 'Username ou senha inválidos'
@@ -59,3 +59,8 @@ def logar(request):
 def logout(request):
     auth.logout(request)
     return redirect('/usuarios/cadastro')
+
+
+def home(request):
+    usuario = request.user.get_short_name()
+    return render(request, 'home.html', {'usuario': usuario})
