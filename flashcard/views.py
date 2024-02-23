@@ -228,6 +228,21 @@ def responder_flashcard(request, id):
 def relatorio(request, id):
     desafio = Desafio.objects.get(id=id)
 
+    if desafio.dificuldade == '1':
+        cor = 'flashcard-teste-facil'
+    elif desafio.dificuldade == '2':
+        cor = 'flashcard-teste-facil'
+    elif desafio.dificuldade == '3':
+        cor = 'flashcard-teste-medio'
+    elif desafio.dificuldade == '4':
+        cor = 'flashcard-teste-medio'
+    elif desafio.dificuldade == '5':
+        cor = 'flashcard-teste-dificil'
+    elif desafio.dificuldade == '6':
+        cor = 'flashcard-teste-dificil'
+    elif desafio.dificuldade == '7':
+        cor = 'flashcard-teste-dificil'
+
     acertos = desafio.flashcards.filter(acertou=True).count()
     erros = desafio.flashcards.filter(acertou=False).count()
 
@@ -240,4 +255,4 @@ def relatorio(request, id):
     for categoria in categorias:
         dados2.append(desafio.flashcards.filter(flashcard__categoria=categoria).filter(acertou=True).count())
 
-    return render(request, 'relatorio.html', {'desafio': desafio, 'dados': dados, 'categorias': name_categoria, 'dados2': dados2, }, )
+    return render(request, 'relatorio.html', {'desafio': desafio, 'cor': cor, 'dados': dados, 'categorias': name_categoria, 'dados2': dados2, }, )

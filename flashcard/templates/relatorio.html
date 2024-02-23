@@ -18,20 +18,28 @@
         <br>
         <br>
         <div class="row">
-            <div class="col-md">
+            <div>
                 <p class="fonte-secundaria">{{desafio.titulo}}</p>
+                {% for flash in desafio.flashcards.all %}
+                    <span class="badge-categoria">{{flash.flashcard.categoria}}</span>
+                {% endfor %}
+                <span class="{{cor}}">{{desafio.get_dificuldade_display}}</span>
                 <hr>
+            </div>
+            <div class="col-md">
+              <h5>Acertos totais</h5>
                 <canvas id="grafico1"></canvas>
             </div>
             <div class="col-md">
-                <br><br><br><br>
-                
+              <h5>Acertos por área de conhecimento</h5>
                 <div style="background-color: white;">
-
                     <canvas id="grafico2"></canvas>
-
                 </div>
             </div>
+            <div>
+              <hr>
+            </div>
+            
         </div>
 
     </div>
